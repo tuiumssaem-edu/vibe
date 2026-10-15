@@ -1,0 +1,212 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>틔움쌤 바이브코딩 프롬프트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style id="app-style">
+/* Layout: 한 줄 세로 흐름. 민트 배경 위 크림 종이 카드 + 연수자료의 브라우저 창 머리 + 앱별 STEP 카드 */
+:root{
+  --bg:#BFDCDD; --surface:#FFFFFF; --soft:#FBF7EE; --line:#4A4A4A; --ink:#3A3A3A; --sub:#6B6B6B;
+  --leaf:#FCF0B8; --leaf-ink:#3A3A3A; --mint:#BFDCDD; --peach:#F8E0C8; --yellow:#FCF0B8; --accent:#EE7A86; --hl:#FFF1A8; --ok:#2E8A5A;
+  --display:"Jua","Noto Sans KR",system-ui,sans-serif;
+  --body:"Noto Sans KR",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#152223; --surface:#1E2B2C; --soft:#233233; --line:#9CC3C4; --ink:#ECF2F2; --sub:#AFC2C2;
+  --leaf:#4A4426; --leaf-ink:#FCF0B8; --mint:#2B4344; --peach:#4A3828; --yellow:#4A4426; --accent:#FF97A2; --hl:#5A5222; --ok:#6FD39C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#152223; --surface:#1E2B2C; --soft:#233233; --line:#9CC3C4; --ink:#ECF2F2; --sub:#AFC2C2;
+  --leaf:#4A4426; --leaf-ink:#FCF0B8; --mint:#2B4344; --peach:#4A3828; --yellow:#4A4426; --accent:#FF97A2; --hl:#5A5222; --ok:#6FD39C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;word-break:keep-all}
+.wrap{max-width:760px;margin:0 auto;padding-block:24px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+.win{border:2.5px solid var(--line);border-radius:22px;overflow:hidden;background:var(--soft)}
+.win-bar{background:var(--mint);border-bottom:2.5px solid var(--line);padding:8px 16px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.08em}
+.win-body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:12px}
+.eyebrow{align-self:flex-start;font-family:var(--display);font-size:15px;background:var(--leaf);color:var(--leaf-ink);border-radius:999px;padding:3px 14px;border:2px solid var(--line)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(28px,6vw,40px);line-height:1.2;margin:0;text-wrap:balance}
+h1 .accent{color:var(--accent)}
+.intro{margin:0;color:var(--sub)}
+.formula{font-family:var(--display);font-size:clamp(16px,3.4vw,21px);background:var(--peach);border:2px solid var(--line);border-radius:14px;padding:10px 14px;text-align:center}
+.howto{margin:0;white-space:pre-wrap;background:var(--surface);border:2px dashed var(--line);border-radius:14px;padding:12px 14px;font-size:15px}
+.nav{display:flex;flex-wrap:wrap;gap:8px}
+.nav a{font-size:14px;font-weight:700;color:var(--ink);text-decoration:none;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:4px 12px}
+.nav a:hover{background:var(--yellow)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-size:14px;font-weight:700;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;min-height:36px}
+.btn:hover{background:var(--yellow)}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible,.nav a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--line)}
+.btn.danger{color:var(--accent)}
+.btn.small{font-size:13px;padding:4px 10px;min-height:30px}
+.status{font-size:13px;color:var(--sub)}
+.section{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}
+.sec-head{display:flex;flex-direction:column;gap:4px}
+h2{align-self:flex-start;font-family:var(--display);font-weight:400;font-size:24px;margin:0;background:var(--leaf);color:var(--leaf-ink);border-radius:999px;padding:4px 18px;border:2.5px solid var(--line)}
+.sec-desc{margin:0;color:var(--sub);font-size:15px;padding-left:4px}
+.item{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.item-head{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
+h3{font-size:17px;margin:0;display:flex;gap:8px;align-items:center}
+.step{flex:none;font-family:var(--display);font-weight:400;font-size:14px;background:var(--yellow);border:2px solid var(--line);border-radius:999px;padding:0 10px}
+.prompt{margin:0;white-space:pre-wrap;font-family:var(--body);font-size:15px;background:var(--soft);border:1.5px dashed var(--line);border-radius:12px;padding:12px 14px;overflow-wrap:anywhere;user-select:text}
+.prompt mark{background:var(--hl);color:inherit;border-radius:4px;padding:0 2px}
+.note{margin:0;font-size:13px;color:var(--sub)}
+.copy.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.safety{background:var(--peach);border:2px solid var(--line);border-radius:16px;padding:16px;white-space:pre-wrap}
+.foot{font-size:12px;color:var(--sub);white-space:pre-wrap}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--sub)}
+input.e,textarea.e{font:inherit;font-size:15px;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:8px 10px;width:100%;min-width:0}
+textarea.e{min-height:110px;resize:vertical;line-height:1.6}
+.editbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--yellow);border:2px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+@media (prefers-reduced-motion:no-preference){.btn,.nav a{transition:background .15s}html{scroll-behavior:smooth}}
+</style>
+
+<div class="wrap" id="app"></div>
+
+<script type="application/json" id="data">{"title":"우리 아이에게 꼭 맞는 앱, 이제 직접 만들어요","intro":"언제까지 남이 만든 앱만 찾고, 우리 아이에게 맞지 않는 걸 쓸 건가요? 이제 선생님이 직접 만들 차례예요. 틔움쌤이 연수에서 쓴 프롬프트를 같은 양식으로 정리했어요. 붙여넣다 보면 언젠가 선생님만의 프롬프트 노하우가 생길거예요!","formula":"[학생] + [교육 목표] + [기능] + [화면] + [조건]","howto":"① Claude·Gemini·ChatGPT처럼 결과를 바로 미리 볼 수 있는 AI를 열어요.\n② STEP 1부터 복사해서 붙여 넣고, 노란색 [ ] 부분은 우리 반에 맞게 바꿔요.\n③ 만들어진 앱을 실행해 보고, 같은 대화창에 STEP 2, 3, 4를 차례로 보내요.","sections":[{"name":"🗓️ 시각적 일과표","desc":"하루 순서를 그림으로 보고, 끝난 활동은 눌러서 표시해요.","items":[{"title":"대화 시작하기","prompt":"[특수교육 대상 학생]을 위한 시각적 일과표 앱을 만들어 주세요.\n- 교육 목표: 하루 일과의 순서를 그림으로 보고 스스로 다음 활동을 준비해요.\n- 기능: [1교시 국어, 2교시 수학, 점심시간]처럼 일과를 카드로 보여 주고, 끝난 일과는 눌러서 완료 표시해요.\n- 화면: 카드마다 큰 아이콘과 짧은 제목, 태블릿에서 누르기 쉬운 큰 카드로 해 주세요.\n- 조건: HTML 파일 하나로, 따로 설치하지 않아도 바로 실행되게 해 주세요.","note":""},{"title":"칭찬 소리 더하기","prompt":"완료 버튼을 누르면 체크 표시와 함께 '참 잘했어요' 효과음이 나게 해 주세요. 효과음은 외부 파일 없이 만들어 주세요.","note":""},{"title":"일과 추가·순서 바꾸기","prompt":"'새 일과 추가' 버튼을 만들어서 시간, 활동 이름, 아이콘을 골라 일과를 추가할 수 있게 해 주세요. 위/아래 버튼으로 순서도 바꿀 수 있게 해 주세요.","note":""},{"title":"저장하고 다듬기","prompt":"새로고침해도 일과표가 그대로 남도록 이 기기의 브라우저에 저장해 주세요. 하루가 끝나면 '처음으로' 버튼으로 완료 표시를 한 번에 지울 수 있게 해 주세요.","note":""}]},{"name":"⭐ 토큰 보상판","desc":"목표 행동을 할 때마다 토큰을 모으고, 다 모으면 보상을 골라요.","items":[{"title":"대화 시작하기","prompt":"[고등학교 특수학급 학생]을 위한 토큰 보상판 앱을 만들어 주세요.\n- 교육 목표: [자리에 앉아 과제하기] 같은 목표 행동을 할 때마다 토큰을 모으며 스스로 행동을 조절해요.\n- 기능: 선생님이 버튼을 누르면 별 토큰이 하나씩 채워지고, [5개]를 다 모으면 축하 화면이 나와요.\n- 화면: 큰 토큰 칸과 큰 버튼으로, 글자는 최소로 해 주세요.\n- 조건: HTML 파일 하나로, 따로 설치하지 않아도 바로 실행되게 해 주세요.","note":""},{"title":"보상 고르기 더하기","prompt":"토큰을 다 모으면 보상 그림 [3]가지 중 하나를 학생이 직접 고를 수 있게 해 주세요. 보상 이름과 그림(이모지)은 선생님이 바꿀 수 있게 해 주세요.","note":""},{"title":"소리와 되돌리기","prompt":"토큰이 채워질 때 부드러운 소리가 나게 해 주세요. 실수로 누른 토큰은 '하나 빼기' 버튼으로 되돌릴 수 있게 해 주세요.","note":""},{"title":"저장하고 다듬기","prompt":"목표 행동과 모을 토큰 개수를 설정 화면에서 바꿀 수 있게 하고, 새로고침해도 남도록 이 기기의 브라우저에 저장해 주세요.","note":""}]},{"name":"😊 감정 체크인","desc":"표정 그림을 눌러 오늘의 기분을 고르고, 선생님이 기록을 확인해요.","items":[{"title":"대화 시작하기","prompt":"[자폐성 장애 학생]을 위한 감정 체크인 앱을 만들어 주세요.\n- 교육 목표: 지금 내 기분을 알아차리고 표현해요.\n- 기능: 기쁨·슬픔·화남·걱정·피곤 다섯 가지 표정 그림 중 하나를 눌러 오늘의 기분을 골라요.\n- 화면: 표정 그림을 크게, 한 화면에 다섯 개만 보여 주고 글자는 최소로 해 주세요.\n- 조건: HTML 파일 하나로, 따로 설치하지 않아도 바로 실행되게 해 주세요.","note":""},{"title":"소리와 이유 고르기","prompt":"표정을 누르면 감정 이름을 소리로 읽어 주세요. 그다음 화면에서 [친구, 공부, 몸, 가족] 그림 중 그런 기분이 든 이유를 고를 수 있게 해 주세요.","note":""},{"title":"선생님 화면 만들기","prompt":"선생님 화면을 따로 만들어서 날짜별로 어떤 감정과 이유를 골랐는지 표로 볼 수 있게 해 주세요. 학생은 이름 대신 [번호]로 구분해 주세요.","note":"학생 실명은 넣지 않아요."},{"title":"저장하고 다듬기","prompt":"기록은 이 기기의 브라우저에 저장하고, 선생님 화면에 '기록 지우기' 버튼을 넣어 주세요. 지우기 전에는 한 번 더 확인하게 해 주세요.","note":""}]},{"name":"📖 사회적 상황 이야기","desc":"카드를 넘기며 학교생활 속 상황과 행동을 익혀요.","items":[{"title":"대화 시작하기","prompt":"[자폐성 장애 학생]을 위한 사회적 상황 이야기 앱을 만들어 주세요.\n- 교육 목표: 학교생활 속 상황에서 어떻게 행동하면 좋은지 이야기로 익혀요.\n- 기능: 한 화면에 한 장면씩 카드를 넘기며 이야기를 읽어요. 기본 이야기로 [복도에서 우측통행하기], [친구에게 부탁할 때], [수업 시간에 손들고 발표하기]를 넣어 주세요.\n- 화면: 장면마다 상황 문장, 그림(아이콘) 자리, 이전/다음 버튼을 두고, 크고 또렷한 글씨와 자극 없는 파스텔 톤으로 해 주세요.\n- 조건: HTML 파일 하나로, 따로 설치하지 않아도 바로 실행되게 해 주세요.","note":""},{"title":"넘기기와 칭찬 효과","prompt":"카드를 넘길 때 부드럽게 넘어가게 하고, 마지막 장면에서는 칭찬 스티커나 폭죽 효과가 나오게 해 주세요.","note":""},{"title":"읽어 주기 더하기","prompt":"장면마다 '읽어 주기' 버튼을 넣어서 상황 문장을 소리로 읽어 주세요.","note":""},{"title":"이야기 편집하고 저장하기","prompt":"선생님이 이야기 제목과 장면 문장을 직접 추가·수정·삭제할 수 있는 '이야기 편집' 화면을 만들어 주세요. 새로고침해도 남도록 이 기기의 브라우저에 저장해 주세요.","note":""}]},{"name":"🕒 시계 읽기","desc":"원리를 배우고, 문제를 풀며 시계 읽기를 익혀요.","items":[{"title":"대화 시작하기","prompt":"[초등학교 1학년 수준의 학생]을 위한 시계 읽기 학습 앱을 만들어 주세요.\n- 교육 목표: 정각, 30분, 10분 단위, 5분 단위로 시계 읽는 법을 익혀요.\n- 기능: '원리 배우기'와 '문제 풀기' 두 가지로 나눠 주세요. 문제는 시각을 보고 바늘 위치를 맞히는 문제와 시계를 보고 시각을 고르는 문제예요.\n- 화면: 큰 아날로그 시계와 큰 보기 버튼으로 해 주세요.\n- 조건: HTML 파일 하나로, 따로 설치하지 않아도 바로 실행되게 해 주세요.","note":""},{"title":"헷갈리는 보기 만들기","prompt":"시계 읽기 문제의 보기를 더 헷갈리게 만들어 주세요. 예를 들어 9:35이면 8:35, 10:35처럼요.","note":""},{"title":"세 가지로 표기하기","prompt":"원리 배우기에서 시각을 디지털 시계와 한글로도 표기해 주세요. '3시 00분', '3:00', '세 시' 세 가지로요.","note":""},{"title":"칭찬과 난이도","prompt":"정답이면 칭찬 소리와 함께 다음 문제로 넘어가고, 오답이면 다시 풀 수 있게 해 주세요. 난이도(정각 → 30분 → 10분 → 5분)를 고를 수 있게 해 주세요.","note":""}]},{"name":"🛠️ 막혔을 때 쓰는 문장","desc":"어느 앱에서든 같은 대화창에 이어서 보내면 돼요.","items":[{"title":"오류가 떴을 때","prompt":"[오류 메시지 붙여넣기]\n이 오류를 고쳐 주세요.","note":""},{"title":"잘 되던 게 망가졌을 때","prompt":"방금 바꾼 것을 되돌려 주세요.","note":""},{"title":"AI가 먼저 묻게 하고 싶을 때","prompt":"답하기 전에 필요한 정보가 있으면 먼저 질문해 주세요.","note":"결과가 엉뚱하면 한 번에 여러 가지 말고 하나씩 나눠서 요청해 보세요."}]}],"safety":"🔒 꼭 지켜요\n❌ 실명·생년월일·진단명을 AI에 입력하지 않기\n⭕ 가명이나 번호로 학생 표시, 만드는 동안은 가상 자료로 시험\n⭕ 학교·교육청 정보보안 지침 확인\nAI가 만든 결과는 초안이에요. 앱은 도구, 판단은 선생님!","footer":"·틔움썜 인스타그램 @tuium_ssaem"}</script>
+
+<script id="app-script">
+(function(){
+  var state = JSON.parse(document.getElementById('data').textContent);
+  var editing = false, canWrite = null, artifactNs = null, busy = false;
+  var app = document.getElementById('app');
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function marked(s){return esc(s).replace(/\[([^\]\n]+)\]/g,'<mark>[$1]</mark>');}
+  function titleHtml(t){var p=String(t).split('|');return esc(p[0])+(p[1]?'<br><span class="accent">'+esc(p[1])+'</span>':'');}
+
+  function viewHtml(){
+    var n=0, h='';
+    h+='<header class="win"><div class="win-bar"><span>PRESENTATION · @tuium_ssaem</span><span aria-hidden="true">–  □  ×</span></div><div class="win-body">';
+    h+='<span class="eyebrow">🌱 틔움쌤의 바이브코딩</span><h1>'+titleHtml(state.title)+'</h1><p class="intro">'+esc(state.intro)+'</p>';
+    h+='<div class="formula">'+esc(state.formula)+'</div><p class="howto">'+esc(state.howto)+'</p>';
+    h+='<nav class="nav" aria-label="앱 바로가기">';
+    state.sections.forEach(function(sec,si){h+='<a href="#app'+si+'">'+esc(sec.name)+'</a>';});
+    h+='</nav><div class="toolbar" id="tools"></div></div></header>';
+    state.sections.forEach(function(sec,si){
+      h+='<section class="section" id="app'+si+'"><div class="sec-head"><h2>'+esc(sec.name)+'</h2>'+(sec.desc?'<p class="sec-desc">'+esc(sec.desc)+'</p>':'')+'</div>';
+      sec.items.forEach(function(it,ii){
+        n++;
+        h+='<article class="item"><div class="item-head"><h3><span class="step">STEP '+(ii+1)+'</span>'+esc(it.title)+'</h3>';
+        h+='<button class="btn copy" data-copy="'+n+'" type="button">📋 복사</button></div>';
+        h+='<pre class="prompt" id="p'+n+'">'+marked(it.prompt)+'</pre>';
+        if(it.note) h+='<p class="note">'+esc(it.note)+'</p>';
+        h+='</article>';
+      });
+      h+='</section>';
+    });
+    h+='<div class="safety">'+esc(state.safety)+'</div><div class="foot">'+esc(state.footer)+'</div>';
+    return h;
+  }
+
+  function field(label,id,val,multi){
+    return '<label class="f">'+label+(multi?'<textarea class="e" id="'+id+'">'+esc(val)+'</textarea>':'<input class="e" id="'+id+'" value="'+esc(val)+'">')+'</label>';
+  }
+
+  function editHtml(){
+    var h='<div class="editbar"><b>편집 중</b><button class="btn primary" type="button" data-act="save">💾 저장하기</button><button class="btn" type="button" data-act="cancel">취소</button><span class="status" id="st">저장하면 모든 사람에게 바뀐 내용이 보여요.</span></div>';
+    h+='<section class="item">'+field('제목 (| 뒤는 분홍색 둘째 줄)','e-title',state.title)+field('소개 문장','e-intro',state.intro,true)+field('프롬프트 공식','e-formula',state.formula)+field('사용 방법','e-howto',state.howto,true)+'</section>';
+    state.sections.forEach(function(sec,si){
+      h+='<section class="section"><div class="item">'+field('앱 이름','s'+si,sec.name)+field('한 줄 설명','d'+si,sec.desc)+'<div class="toolbar"><button class="btn small danger" type="button" data-act="delsec" data-s="'+si+'">이 앱 묶음 삭제</button></div></div>';
+      sec.items.forEach(function(it,ii){
+        var k=si+'-'+ii;
+        h+='<article class="item"><span class="step" style="align-self:flex-start">STEP '+(ii+1)+'</span>'+field('단계 이름','t'+k,it.title)+field('프롬프트 ([ ] 안은 노란색으로 표시돼요)','p'+k,it.prompt,true)+field('도움말 (비워도 돼요)','n'+k,it.note);
+        h+='<div class="toolbar"><button class="btn small" type="button" data-act="up" data-s="'+si+'" data-i="'+ii+'">▲ 위로</button><button class="btn small" type="button" data-act="down" data-s="'+si+'" data-i="'+ii+'">▼ 아래로</button><button class="btn small danger" type="button" data-act="del" data-s="'+si+'" data-i="'+ii+'">삭제</button></div></article>';
+      });
+      h+='<button class="btn" type="button" data-act="add" data-s="'+si+'">＋ 이 앱에 STEP 추가</button></section>';
+    });
+    h+='<button class="btn" type="button" data-act="addsec">＋ 새 앱 묶음 추가</button>';
+    h+='<section class="item">'+field('주의사항','e-safety',state.safety,true)+field('출처','e-footer',state.footer,true)+'</section>';
+    return h;
+  }
+
+  function collect(){
+    var g=function(id){var el=document.getElementById(id);return el?el.value:'';};
+    state.title=g('e-title');state.intro=g('e-intro');state.formula=g('e-formula');state.howto=g('e-howto');state.safety=g('e-safety');state.footer=g('e-footer');
+    state.sections.forEach(function(sec,si){
+      sec.name=g('s'+si);sec.desc=g('d'+si);
+      sec.items.forEach(function(it,ii){var k=si+'-'+ii;it.title=g('t'+k);it.prompt=g('p'+k);it.note=g('n'+k);});
+    });
+  }
+
+  function renderTools(){
+    var t=document.getElementById('tools'); if(!t) return;
+    if(canWrite){t.innerHTML='<button class="btn" type="button" data-act="edit">✏️ 내용 수정하기</button>';}
+    else if(canWrite===false){t.innerHTML='<span class="status">📋 복사 버튼을 눌러 바로 가져가세요.</span>';}
+    else t.innerHTML='';
+  }
+
+  function render(){
+    app.innerHTML = editing ? editHtml() : viewHtml();
+    if(!editing) renderTools();
+  }
+
+  function buildDoc(){
+    var css=document.getElementById('app-style').textContent;
+    var js=document.getElementById('app-script').textContent;
+    var data=JSON.stringify(state).replace(/</g,'\\u003c');
+    return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>'
+      +'<title>'+esc(document.title)+'</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'
+      +'<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">\n'
+      +'<style id="app-style">'+css+'</style>\n\n<div class="wrap" id="app"></div>\n\n'
+      +'<script type="application/json" id="data">'+data+'<\/script>\n\n<script id="app-script">'+js+'<\/script>\n</body></html>';
+  }
+
+  function copyText(n,btn){
+    var flat=[];state.sections.forEach(function(s){s.items.forEach(function(i){flat.push(i);});});
+    var text=flat[n-1].prompt;
+    function ok(){btn.textContent='✅ 복사됐어요';btn.classList.add('done');setTimeout(function(){btn.textContent='📋 복사';btn.classList.remove('done');},1800);}
+    function fallback(){
+      var pre=document.getElementById('p'+n);var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);
+      var done=false;try{done=document.execCommand('copy');}catch(e){}
+      if(done) ok(); else btn.textContent='선택됐어요. 길게 눌러 복사하세요';
+    }
+    try{navigator.clipboard.writeText(text).then(ok,fallback);}catch(e){fallback();}
+  }
+
+  async function save(){
+    if(busy) return; collect(); busy=true;
+    var st=document.getElementById('st'); if(st) st.textContent='저장하는 중…';
+    try{
+      await artifactNs.publish(buildDoc());
+      if(st) st.textContent='저장했어요. 새 버전으로 다시 열려요.';
+    }catch(e){
+      busy=false;
+      var c=e&&e.code;
+      if(c==='conflict'){ if(st) st.textContent='다른 곳에서 먼저 저장해서 최신 버전으로 다시 열려요.'; return; }
+      if(c==='not_writer'||c==='not_granted'||c==='consent_required'||c==='capability_disabled'||c==='not_declared'){ canWrite=false; if(st) st.textContent='이 화면에서는 저장할 수 없어요. 보기 전용이에요.'; return; }
+      if(st) st.textContent='저장하지 못했어요. 잠시 뒤 다시 눌러 주세요.';
+    }
+  }
+
+  app.addEventListener('click',function(ev){
+    var b=ev.target.closest('button'); if(!b) return;
+    if(b.dataset.copy){copyText(+b.dataset.copy,b);return;}
+    var a=b.dataset.act; if(!a) return;
+    if(a==='edit'){editing=true;render();window.scrollTo(0,0);return;}
+    if(a==='cancel'){state=JSON.parse(document.getElementById('data').textContent);editing=false;render();return;}
+    if(a==='save'){save();return;}
+    collect();
+    var s=+b.dataset.s, i=+b.dataset.i, items=state.sections[s]&&state.sections[s].items;
+    if(a==='add') items.push({title:'새 단계',prompt:'',note:''});
+    if(a==='del') items.splice(i,1);
+    if(a==='up'&&i>0){var x=items[i];items[i]=items[i-1];items[i-1]=x;}
+    if(a==='down'&&i<items.length-1){var y=items[i];items[i]=items[i+1];items[i+1]=y;}
+    if(a==='delsec') state.sections.splice(s,1);
+    if(a==='addsec') state.sections.push({name:'새 앱',desc:'',items:[{title:'대화 시작하기',prompt:'',note:''}]});
+    render();
+  });
+
+  render();
+
+  if(window.claude && typeof window.claude.use==='function'){
+    window.claude.use('artifact').then(function(ns){
+      if(!ns){canWrite=false;renderTools();return;}
+      artifactNs=ns;
+      return window.claude.use('user').then(function(u){
+        if(!u){canWrite=true;renderTools();return;}
+        return Promise.all([u.canEdit(),u.isOwner()]).then(function(r){canWrite=!!(r[0]||r[1]);renderTools();});
+      }).catch(function(){canWrite=true;renderTools();});
+    },function(){canWrite=false;renderTools();});
+  } else { canWrite=false; }
+})();
+</script>
+</body></html>
